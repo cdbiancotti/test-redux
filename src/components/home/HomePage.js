@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Card from '../card/Card';
 import styles from './home.module.css';
 import { connect } from 'react-redux';
-import { removeCharacterAction } from '../../redux/charsDuck';
+import { removeCharacterAction, addToFavoriteAction } from '../../redux/charsDuck';
 
 // let URL = "https://rickandmortyapi.com/api"
 
-const Home = ({ chars, removeCharacterAction }) => {
+const Home = ({ chars, removeCharacterAction, addToFavoriteAction }) => {
   // let [chars, setChars] = useState([])
 
   // useEffect(() => {
@@ -24,12 +24,15 @@ const Home = ({ chars, removeCharacterAction }) => {
   const nextChar = () => {
     removeCharacterAction();
   };
+  const addFav = () => {
+    addToFavoriteAction();
+  };
 
   function renderCharacter() {
-    let char = chars[3];
+    let char = chars[0];
     return (
       // <Card leftClick={nextChar} {...char} />
-      <Card leftClick={nextChar} {...char} />
+      <Card leftClick={nextChar} rightClick={addFav} {...char} />
     );
   }
 
@@ -54,4 +57,4 @@ const mapState = (state) => {
   };
 };
 
-export default connect(mapState, { removeCharacterAction })(Home);
+export default connect(mapState, { removeCharacterAction, addToFavoriteAction })(Home);
